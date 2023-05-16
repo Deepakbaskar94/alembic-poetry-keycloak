@@ -1,0 +1,24 @@
+alembic init alembic
+alembic revision --autogenerate -m "first commit"
+alembic upgrade head
+
+
+
+
+
+
+
+
+
+alembic.ini
+            sqlalchemy.url = mysql+mysqldb://root:Root123$@localhost/ecg_data
+
+env.py (add near target_metadata)
+            from app.db.base import Base
+            from app.db.session import SQLALCHEMY_DATABASE_URI
+
+            target_metadata = Base.metadata
+            # target_metadata = None
+
+            def get_url():
+                return SQLALCHEMY_DATABASE_URI

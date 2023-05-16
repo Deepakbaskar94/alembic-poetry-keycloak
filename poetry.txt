@@ -1,0 +1,31 @@
+Reference: https://medium.com/analytics-vidhya/poetry-finally-an-all-in-one-tool-to-manage-python-packages-3c4d2538e828
+
+
+poetry --version                    #to get version
+poetry self update                  #to update poetry
+
+
+poetry init                         #to initiate poetry to current project
+poetry add fastapi                  #to add package to poetry 
+poetry add -D pytest                #to add package to dev dependency
+
+poetry show --tree                  #to show tree of all package and its sub package 
+poetry show --latest                #to check current version and latest version
+
+poetry install                      #to install poetry 
+
+
+poetry env info                     #to check poetry linkage with environment
+poetry env info --path              #to get path of environment
+
+poetry run pytest                   #to run pytest
+poetry shell                        #to enter into shell and run the command
+    pytest
+
+poetry update packagename           #to update the package
+
+poetry remove fastapi               #to remove the package 
+poetry remove -D pytest             #to remove the package from dev dependency
+
+
+
