@@ -1,0 +1,76 @@
+Keycloak Integration with Python:
+
+===========================================================================================
+===========================================================================================
+docker-compose.yml
+===========================================================================================
+
+version: '2'
+services:
+  postgresql:
+    image: docker.io/bitnami/postgresql:11
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_USERNAME=bn_keycloak
+      - POSTGRESQL_DATABASE=bitnami_keycloak
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+
+  keycloak:
+    image: docker.io/bitnami/keycloak:21
+    depends_on:
+      - postgresql
+    ports:
+      - "80:8080"
+
+volumes:
+  postgresql_data:
+    driver: local
+	
+===========================================================================================
+===========================================================================================
+Initial Setup
+===========================================================================================
+make the docker compose file
+docker compose up
+
+Login with admin console 
+user - bitnami
+change the password for user with difficult password 
+
+
+Create a realm
+import previously have realm or give realm name as ecgvue - enabled true - Create
+
+
+Create Client - (Backend)
+Clients - Create Client - Clientid "backend" - Name "Backend" - Description "This client is for backend access"
+Next - ClientAuthentication True - ServiceAccountRoles True 
+Next - Redirect URL (Not Required)
+Save
+Clinets - backend - settings - frontchannellogout True - BackChannelLogout True 
+						  - credentials - copy client secret and put in our code 
+						  - service accounts roles - assign role - filter by clients - realm-admin - assign 
+						  
+						  
+Create Client - (Frontend)
+Clients - Create Client - Clientid "frontend" - Name "Frontend" - Description "This client is for frontend access"
+Next - StandardFlow True - DirectAccessGrants True 
+Next - Redirect URL (web frontend homepage url)
+		- WebOrigin URL (from which domain we may expect the request will come from eg. front end)
+Save
+===========================================================================================
+===========================================================================================
+check the test code:
+===========================================================================================
+
+===========================================================================================
+===========================================================================================
+Some useful links
+===========================================================================================
+http://10.10.2.187/realms/ecgvue/protocol/openid-connect/auth?client_id=frontend
+
+http://10.10.2.187/realms/ecgvue/protocol/openid-connect/auth?client_id=frontend&response_type=code
+
+http://10.10.2.187/realms/ecgvue/protocol/openid-connect/auth?client_id=frontend&response_type=token
